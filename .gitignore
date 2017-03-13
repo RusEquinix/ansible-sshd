@@ -1,0 +1,10 @@
+# Ignore dotfiles, except...
+
+.*
+!/.gitignore
+
+# Ignore Ansible retry files
+*.retry
+
+# Ignore the Vagrantfile
+Vagrantfile

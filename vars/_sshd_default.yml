@@ -1,0 +1,116 @@
+---
+sshd_os_supported: false
+
+# sshd_config_file: /etc/ssh/sshd_config
+# sshd_binary: /usr/sbin/sshd
+# sshd_service: sshd
+# sshd_packages:
+#   - openssh-server
+#   - openssh-sftp-server
+# sshd_config_file_owner: root
+# sshd_config_file_group: root
+# sshd_config_file_mode: "0644"
+
+# sshd_config defaults as per OpenSSH sshd_config(5)
+# http://man.openbsd.org/OpenBSD-current/man5/sshd_config.5
+# Note: not used, just for reference
+
+# sshd_conf_val_acceptenv: []
+# sshd_conf_val_addressfamily: any
+# sshd_conf_val_allowagentforwarding: "yes"
+# sshd_conf_val_allowgroups: []
+# sshd_conf_val_allowstreamlocalforwarding: "yes"
+# sshd_conf_val_allowtcpforwarding: "yes"
+# sshd_conf_val_allowusers: []
+# sshd_conf_val_authenticationmethods: any
+# sshd_conf_val_authorizedkeyscommand: none
+# sshd_conf_val_authorizedkeyscommanduser: nobody
+# sshd_conf_val_authorizedkeysfile: .ssh/authorized_keys
+# sshd_conf_val_authorizedprincipalscommand:
+# sshd_conf_val_authorizedprincipalscommanduser:
+# sshd_conf_val_authorizedprincipalsfile:
+# sshd_conf_val_banner: none
+# sshd_conf_val_challengeresponseauthentication: "yes"
+# sshd_conf_val_chrootdirectory: none
+# sshd_conf_val_ciphers: "chacha20-poly1305@openssh.com,\
+#   aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,\
+#   aes256-gcm@openssh.com"
+# sshd_conf_val_clientalivecountmax: 3
+# sshd_conf_val_clientaliveinterval: 0
+# sshd_conf_val_compression: "yes"
+# sshd_conf_val_denygroups: []
+# sshd_conf_val_denyusers: []
+# sshd_conf_val_fingerprinthash: sha256
+# sshd_conf_val_forcecommand: none
+# sshd_conf_val_gatewayports: "no"
+# sshd_conf_val_gssapiauthentication: "no"
+# sshd_conf_val_gssapicleanupcredentials: "yes"
+# sshd_conf_val_gssapistrictacceptorcheck: "yes"
+# sshd_conf_val_hostbasedacceptedkeytypes: "ecdsa-sha2-nistp256-cert-v01@openssh.com,\
+#   ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521-cert-v01@openssh.com,\
+#   ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,\
+#   ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,ssh-ed25519,ssh-rsa"
+# sshd_conf_val_hostbasedauthentication: "no"
+# sshd_conf_val_hostbasedusesnamefrompacketonly: "no"
+# sshd_conf_val_hostcertificate:
+# sshd_conf_val_hostkey:
+#   - /etc/ssh/ssh_host_dsa_key
+#   - /etc/ssh/ssh_host_ecdsa_key
+#   - /etc/ssh/ssh_host_ed25519_key
+#   - /etc/ssh/ssh_host_rsa_key
+# sshd_conf_val_hostkeyagent:
+# sshd_conf_val_ignorerhosts: "yes"
+# sshd_conf_val_ignoreuserknownhosts: "no"
+# sshd_conf_val_ipqos: "lowdelay throughput"
+# sshd_conf_val_kbdinteractiveauthentication: "{{ sshd_conf_val_challengeresponseauthentication }}"
+# sshd_conf_val_kerberosauthentication: "no"
+# sshd_conf_val_kerberosgetafstoken: "no"
+# sshd_conf_val_kerberosorlocalpasswd: "yes"
+# sshd_conf_val_kerberosticketcleanup: "yes"
+# sshd_conf_val_kexalgorithms: "curve25519-sha256,curve25519-sha256@libssh.org,\
+#   ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,\
+#   diffie-hellman-group-exchange-sha256,diffie-hellman-group14-sha1"
+# sshd_conf_val_listenaddress:
+#   - "0.0.0.0"
+#   - "::"
+# sshd_conf_val_logingracetime: 120
+# sshd_conf_val_loglevel: INFO
+# sshd_conf_val_macs: "umac-64-etm@openssh.com,umac-128-etm@openssh.com,\
+#   hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,\
+#   hmac-sha1-etm@openssh.com,umac-64@openssh.com,\
+#   umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1"
+# sshd_conf_val_match:
+# sshd_conf_val_maxauthtries: 6
+# sshd_conf_val_maxsessions: 10
+# sshd_conf_val_maxstartups: "10:30:100"
+# sshd_conf_val_passwordauthentication: "yes"
+# sshd_conf_val_permitemptypasswords:"no"
+# sshd_conf_val_permitopen: any
+# sshd_conf_val_permitrootlogin: prohibit-password
+# sshd_conf_val_permittunnel: "no"
+# sshd_conf_val_permittty: "yes"
+# sshd_conf_val_permituserenvironment: "no"
+# sshd_conf_val_permituserrc: "yes"
+# sshd_conf_val_pidfile: /var/run/sshd.pid
+# sshd_conf_val_port: 22
+# sshd_conf_val_printlastlog: "yes"
+# sshd_conf_val_printmotd: "yes"
+# sshd_conf_val_pubkeyacceptedkeytypes: "ecdsa-sha2-nistp256-cert-v01@openssh.com,\
+#   ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521-cert-v01@openssh.com,\
+#   ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,\
+#   ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,ssh-ed25519,ssh-rsa"
+# sshd_conf_val_pubkeyauthentication: "yes"
+# sshd_conf_val_rekeylimit: "default none"
+# sshd_conf_val_revokedkeys: none
+# sshd_conf_val_strictmodes: "yes"
+# sshd_conf_val_subsystem: []
+# sshd_conf_val_syslogfacility: AUTH
+# sshd_conf_val_tcpkeepalive: "yes"
+# sshd_conf_val_trustedusercakeys: []
+# sshd_conf_val_usedns: "yes"
+# sshd_conf_val_useprivilegeseparation: sandbox
+# sshd_conf_val_versionaddendum: none
+# x11displayoffset: 10
+# x11forwarding: "no"
+# x11uselocalhost: "yes"
+# sshd_conf_val_xauthlocation: none

@@ -1,0 +1,113 @@
+---
+## file: roles/ansible-sshd/vars/CentOS_7.yml
+## default vars for sshd_config file
+ 
+sshd_os_supported: true
+
+sshd_config_file: /etc/ssh/sshd_config
+sshd_binary: /usr/sbin/sshd
+sshd_service: sshd
+sshd_packages:
+  - openssh
+  - openssh-clients
+  - openssh-server
+sshd_config_file_owner: root
+sshd_config_file_group: root
+sshd_config_file_mode: "0600"
+
+## sshd_config default parameters obtained from sshd -T
+## not every parameter is used, but these are here in case needed
+## and for reference
+#
+# sshd_conf_val_acceptenv: LANG LANGUAGE LC_ADDRESS LC_ALL LC_COLLATE LC_CTYPE LC_IDENTIFICATION
+#   LC_MEASUREMENT LC_MESSAGES LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE
+#   LC_TIME XMODIFIERS
+# sshd_conf_val_addressfamily: any
+# sshd_conf_val_allowagentforwarding: "yes"
+# sshd_conf_val_allowtcpforwarding: "yes"
+# sshd_conf_val_authenticationmethods: any
+# sshd_conf_val_authorizedkeysfile: .ssh/authorized_keys
+# sshd_conf_val_banner: none
+# sshd_conf_val_challengeresponseauthentication: "no"
+# sshd_conf_val_ciphers: "3des-cbc,blowfish-cbc,cast128-cbc,\
+#   arcfour,arcfour128,arcfour256,aes128-cbc,aes192-cbc,aes256-cbc,\
+#   rijndael-cbc@lysator.liu.se,aes128-ctr,aes192-ctr,aes256-ctr,\
+#   aes128-gcm@openssh.com,aes256-gcm@openssh.com,chacha20-poly1305@openssh.com"
+# sshd_conf_val_clientalivecountmax: 3
+# sshd_conf_val_clientaliveinterval: 0
+# sshd_conf_val_compression: delayed
+# sshd_conf_val_exposeauthenticationmethods: never
+# sshd_conf_val_gatewayports: "no"
+# sshd_conf_val_gssapiauthentication: "yes"
+# sshd_conf_val_gssapicleanupcredentials: "no"
+# sshd_conf_val_gssapienablek5users: "no"
+# sshd_conf_val_gssapikexalgorithms: gss-gex-sha1-,gss-group1-sha1-,gss-group14-sha1-
+# sshd_conf_val_gssapikeyexchange: "no"
+# sshd_conf_val_gssapistorecredentialsonrekey: "no"
+# sshd_conf_val_gssapistrictacceptorcheck: "yes"
+# sshd_conf_val_hostbasedauthentication: "no"
+# sshd_conf_val_hostbasedusesnamefrompacketonly: "no"
+# sshd_conf_val_hostkey: |
+#   HostKey /etc/ssh/ssh_host_ecdsa_key
+#   HostKey /etc/ssh/ssh_host_ed25519_key
+#   HostKey /etc/ssh/ssh_host_rsa_key
+# sshd_conf_val_ignorerhosts: "yes"
+# sshd_conf_val_ignoreuserknownhosts: "no"
+# sshd_conf_val_ipqos: lowdelay throughput
+# sshd_conf_val_kbdinteractiveauthentication: "no"
+# sshd_conf_val_kerberosauthentication: "no"
+# sshd_conf_val_kerberosorlocalpasswd: "yes"
+# sshd_conf_val_kerberosticketcleanup: "yes"
+# sshd_conf_val_kerberosusekuserok: "yes"
+# sshd_conf_val_kexalgorithms: "diffie-hellman-group1-sha1,diffie-hellman-group14-sha1,\
+#   diffie-hellman-group-exchange-sha1,diffie-hellman-group-exchange-sha256,\
+#   ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,\
+#   diffie-hellman-group1-sha1,curve25519-sha256@libssh.org,gss-gex-sha1-,\
+#   gss-group1-sha1-,gss-group14-sha1-"
+# sshd_conf_val_keyregenerationinterval: 3600
+# sshd_conf_val_listenaddress: |
+#   ListenAddress "0.0.0.0:22"
+#   ListenAddress "[::]:22"
+# sshd_conf_val_logingracetime: 120
+# sshd_conf_val_loglevel: INFO
+# sshd_conf_val_macs: "hmac-sha1,hmac-sha1-96,hmac-sha2-256,hmac-sha2-512,hmac-md5,\
+#   hmac-md5-96,hmac-ripemd160,hmac-ripemd160@openssh.com,umac-64@openssh.com,\
+#   umac-128@openssh.com,hmac-sha1-etm@openssh.com,hmac-sha1-96-etm@openssh.com,\
+#   hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,\
+#   hmac-md5-etm@openssh.com,hmac-md5-96-etm@openssh.com,\
+#   hmac-ripemd160-etm@openssh.com,umac-64-etm@openssh.com,umac-128-etm@openssh.com"
+# sshd_conf_val_maxauthtries: 6
+# sshd_conf_val_maxsessions: 10
+# sshd_conf_val_maxstartups: "10:30:100"
+# sshd_conf_val_passwordauthentication: "yes"
+# sshd_conf_val_permitemptypasswords: "no"
+# sshd_conf_val_permitopen: any
+# sshd_conf_val_permitrootlogin: "yes"
+# sshd_conf_val_permittty: "yes"
+# sshd_conf_val_permittunnel: "no"
+# sshd_conf_val_permituserenvironment: "no"
+# sshd_conf_val_pidfile: /var/run/sshd.pid
+# sshd_conf_val_port: 22
+# sshd_conf_val_printlastlog: "yes"
+# sshd_conf_val_printmotd: "yes"
+# sshd_conf_val_protocol: 2
+# sshd_conf_val_pubkeyauthentication: "yes"
+# sshd_conf_val_rekeylimit: 0 0
+# sshd_conf_val_rhostsrsaauthentication: "no"
+# sshd_conf_val_rsaauthentication: "yes"
+# sshd_conf_val_serverkeybits: 1024
+# sshd_conf_val_showpatchlevel: "no"
+# sshd_conf_val_strictmodes: "yes"
+# sshd_conf_val_subsystem: "sftp {{ sshd_sftp_server }}"
+# sshd_conf_val_syslogfacility: AUTHPRIV
+# sshd_conf_val_tcpkeepalive: "yes"
+# sshd_conf_val_usedns: "yes"
+# sshd_conf_val_uselogin: "no"
+# sshd_conf_val_usepam: "yes"
+# sshd_conf_val_useprivilegeseparation: sandbox
+# sshd_conf_val_versionaddendum: none
+# sshd_conf_val_x11displayoffset: 10
+# sshd_conf_val_x11forwarding: "yes"
+# sshd_conf_val_x11maxdisplays: 1000
+# sshd_conf_val_x11uselocalhost: "yes"
+# sshd_conf_val_xauthlocation: /usr/bin/xauth

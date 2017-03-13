@@ -1,0 +1,17 @@
+---
+## file: roles/ansible-sshd/vars/hardened_config.yml
+## vars file for more secure sshd_config options
+
+# vars that should help to harden an OpenSSH server.
+# For more information on what the vars do, please
+# consult http://man.openbsd.org/sshd_config
+
+sshd_conf_val_allowtcpforwarding: "no"
+sshd_conf_val_logingracetime: 30
+sshd_conf_val_maxauthtries: 3
+sshd_conf_val_passwordauthentication: "no"
+sshd_conf_val_permitemptypasswords: "no"
+sshd_conf_val_permitrootlogin: "no"
+sshd_conf_val_strictmodes: "yes"
+sshd_conf_val_useprivilegeseparation: sandbox
+sshd_conf_val_x11forwarding: "no"

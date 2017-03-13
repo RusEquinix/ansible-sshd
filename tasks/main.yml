@@ -1,0 +1,32 @@
+---
+## file: roles/ansible-sshd/tasks/main.yml
+
+- name: Getting vars from the distro specific sshd_config file
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}_{{ ansible_distribution_major_version }}.yml"
+    - "_sshd_default.yml"
+
+- name: Getting vars for *hardened* configuration, if enabled
+  include_vars: hardened_config.yml
+  when: sshd_hardened
+
+# only run the following tasks when the OS is supported; we don't want to munge anything
+- block:
+  - name: Making sure OpenSSH server is installed
+    package:
+      name: "{{ item }}"
+      state: present
+    with_items: "{{ sshd_packages }}"
+
+  - name: Making changes to the sshd_config file via template
+    template:
+      src: "{{ ansible_distribution }}_{{ ansible_distribution_major_version }}_sshd_config.j2"
+      dest: "{{ sshd_config_file }}"
+      owner: "{{ sshd_config_file_owner }}"
+      group: "{{ sshd_config_file_group }}"
+      mode: "{{ sshd_config_file_mode }}"
+      validate: "{{ sshd_binary }} -t -f %s"
+    notify: reload_sshd
+
+  when: sshd_os_supported
