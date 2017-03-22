@@ -4,8 +4,11 @@
 - name: Getting vars from the distro specific sshd_config file
   include_vars: "{{ item }}"
   with_first_found:
-    - "{{ ansible_distribution }}_{{ ansible_distribution_major_version }}.yml"
-    - "_sshd_default.yml"
+    - files:
+      - "{{ ansible_distribution }}_{{ ansible_distribution_major_version }}.yml"
+      paths:
+       - roles/ansible-sshd/vars/
+      skip: true
 
 - name: Getting vars for *hardened* configuration, if enabled
   include_vars: hardened_config.yml
