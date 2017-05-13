@@ -90,7 +90,7 @@ None
 
 ## License
 
-BSD, 3-clause
+BSD, 2-clause
 
 ## Author
 

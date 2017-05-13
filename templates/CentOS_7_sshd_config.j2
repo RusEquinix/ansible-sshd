@@ -86,7 +86,6 @@ IgnoreRhosts {{ sshd_conf_val_ignorerhosts | default('yes') }}
 # To disable tunneled clear text passwords, change to no here!
 PasswordAuthentication {{ sshd_conf_val_passwordauthentication | default('yes') }}
 PermitEmptyPasswords {{ sshd_conf_val_permitemptypasswords | default('no') }}
-PasswordAuthentication {{ sshd_conf_val_passwordauthentication | default('yes') }}
 
 # Change to no to disable s/key passwords
 ChallengeResponseAuthentication {{ sshd_conf_val_challengeresponseauthentication | default('no') }}
