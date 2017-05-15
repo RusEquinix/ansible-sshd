@@ -7,4 +7,3 @@
 *.retry
 
 tests/inventory
-Vagrantfile

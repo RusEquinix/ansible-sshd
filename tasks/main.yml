@@ -16,7 +16,7 @@
 
 # only run the following tasks when the OS is supported; we don't want to munge anything
 - block:
-  - name: Making sure OpenSSH server is installed
+  - name: Making sure OpenSSH server is installed (otherwise we're sol)
     package:
       name: "{{ item }}"
       state: present
