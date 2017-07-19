@@ -1,0 +1,23 @@
+---
+## file: roles/ansible-sshd/tasks/CentOS_7.yml
+
+- name: Hardening sshd_config (disabling PasswordAuthentication)
+  lineinfile:
+    path: "{{ sshd_config_file }}"
+    regexp: '^PasswordAuthentication yes'
+    line: 'PasswordAuthentication no'
+    validate: "{{ sshd_binary }} -t -f %s"
+
+- name: Hardening sshd_config (disabling ChallengeResponseAuthentication)
+  lineinfile:
+    path: "{{ sshd_config_file }}"
+    regexp: '^ChallengeResponseAuthentication'
+    line: 'ChallengeResponseAuthentication no'
+    validate: "{{ sshd_binary }} -t -f %s"
+
+- name: Checking file perms
+  file:
+    path: "{{ sshd_config_file }}"
+    owner: root
+    group: root
+    mode: 0600
