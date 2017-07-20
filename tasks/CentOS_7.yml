@@ -1,18 +1,45 @@
 ---
 ## file: roles/ansible-sshd/tasks/CentOS_7.yml
 
+#LoginGraceTime 2m
+#PermitRootLogin yes
+#StrictModes yes
+#MaxAuthTries 6
+#MaxSessions 10
+
 - name: Hardening sshd_config (disabling PasswordAuthentication)
   lineinfile:
     path: "{{ sshd_config_file }}"
-    regexp: '^PasswordAuthentication yes'
+    regexp: '^[#]*PasswordAuthentication yes'
     line: 'PasswordAuthentication no'
     validate: "{{ sshd_binary }} -t -f %s"
 
 - name: Hardening sshd_config (disabling ChallengeResponseAuthentication)
   lineinfile:
     path: "{{ sshd_config_file }}"
-    regexp: '^ChallengeResponseAuthentication'
+    regexp: '^[#]*ChallengeResponseAuthentication'
     line: 'ChallengeResponseAuthentication no'
+    validate: "{{ sshd_binary }} -t -f %s"
+
+- name: Hardening sshd_config (disabling PermitRootLogin)
+  lineinfile:
+    path: "{{ sshd_config_file }}"
+    regexp: '^[#]*PermitRootLogin'
+    line: 'PermitRootLogin no'
+    validate: "{{ sshd_binary }} -t -f %s"
+
+- name: Hardening sshd_config (setting MaxAuthTries to 3)
+  lineinfile:
+    path: "{{ sshd_config_file }}"
+    regexp: '^[#]*MaxAuthTries'
+    line: 'MaxAuthTries 3'
+    validate: "{{ sshd_binary }} -t -f %s"
+
+- name: Hardening sshd_config (explicity setting Protocol v2 only)
+  lineinfile:
+    path: "{{ sshd_config_file }}"
+    regexp: '^[#]*Protocol'
+    line: 'Protocol 2'
     validate: "{{ sshd_binary }} -t -f %s"
 
 - name: Checking file perms
