@@ -50,7 +50,6 @@
     line: 'Protocol 2'
     validate: "{{ sshd_binary }} -t -f %s"
 
-PubkeyAuthentication yes
 - name: Hardening sshd_config (PubkeyAuthentication -> setting to yes)
   lineinfile:
     path: "{{ sshd_config_file }}"
@@ -71,7 +70,3 @@ PubkeyAuthentication yes
     regexp: '^[#]*X11Forwarding'
     line: 'X11Forwarding no'
     validate: "{{ sshd_binary }} -t -f %s"
-
-
-
-
