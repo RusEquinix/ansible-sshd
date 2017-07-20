@@ -1,50 +1,77 @@
 ---
 ## file: roles/ansible-sshd/tasks/CentOS_7.yml
+#
+# Enforcing some settings to harden sshd. While some of the below are
+# the defaults, this will ensure that they are so.
 
 #LoginGraceTime 2m
-#PermitRootLogin yes
 #StrictModes yes
-#MaxAuthTries 6
 #MaxSessions 10
 
-- name: Hardening sshd_config (disabling PasswordAuthentication)
-  lineinfile:
-    path: "{{ sshd_config_file }}"
-    regexp: '^[#]*PasswordAuthentication yes'
-    line: 'PasswordAuthentication no'
-    validate: "{{ sshd_binary }} -t -f %s"
-
-- name: Hardening sshd_config (disabling ChallengeResponseAuthentication)
+- name: Hardening sshd_config (ChallengeResponseAuthentication -> setting to no)
   lineinfile:
     path: "{{ sshd_config_file }}"
     regexp: '^[#]*ChallengeResponseAuthentication'
     line: 'ChallengeResponseAuthentication no'
     validate: "{{ sshd_binary }} -t -f %s"
 
-- name: Hardening sshd_config (disabling PermitRootLogin)
+- name: Hardening sshd_config (IgnoreRhosts -> setting to yes)
   lineinfile:
     path: "{{ sshd_config_file }}"
-    regexp: '^[#]*PermitRootLogin'
-    line: 'PermitRootLogin no'
+    regexp: '^[#]*IgnoreRhosts'
+    line: 'IgnoreRhosts yes'
     validate: "{{ sshd_binary }} -t -f %s"
 
-- name: Hardening sshd_config (setting MaxAuthTries to 3)
+- name: Hardening sshd_config (MaxAuthTries -> setting to 3)
   lineinfile:
     path: "{{ sshd_config_file }}"
     regexp: '^[#]*MaxAuthTries'
     line: 'MaxAuthTries 3'
     validate: "{{ sshd_binary }} -t -f %s"
 
-- name: Hardening sshd_config (explicity setting Protocol v2 only)
+- name: Hardening sshd_config (PasswordAuthentication -> setting to no)
+  lineinfile:
+    path: "{{ sshd_config_file }}"
+    regexp: '^[#]*PasswordAuthentication yes'
+    line: 'PasswordAuthentication no'
+    validate: "{{ sshd_binary }} -t -f %s"
+
+- name: Hardening sshd_config (PermitRootLogin -> setting to no)
+  lineinfile:
+    path: "{{ sshd_config_file }}"
+    regexp: '^[#]*PermitRootLogin'
+    line: 'PermitRootLogin no'
+    validate: "{{ sshd_binary }} -t -f %s"
+
+- name: Hardening sshd_config (Protocol -> explicity setting v2 only)
   lineinfile:
     path: "{{ sshd_config_file }}"
     regexp: '^[#]*Protocol'
     line: 'Protocol 2'
     validate: "{{ sshd_binary }} -t -f %s"
 
-- name: Checking file perms
-  file:
+PubkeyAuthentication yes
+- name: Hardening sshd_config (PubkeyAuthentication -> setting to yes)
+  lineinfile:
     path: "{{ sshd_config_file }}"
-    owner: root
-    group: root
-    mode: 0600
+    regexp: '^[#]*PubkeyAuthentication'
+    line: 'PubkeyAuthentication yes'
+    validate: "{{ sshd_binary }} -t -f %s"
+
+- name: Hardening sshd_config (UseDNS -> setting to yes)
+  lineinfile:
+    path: "{{ sshd_config_file }}"
+    regexp: '^[#]*UseDNS'
+    line: 'Protocol 2'
+    validate: "{{ sshd_binary }} -t -f %s"
+
+- name: Hardening sshd_config (X11Forwarding -> setting to no)
+  lineinfile:
+    path: "{{ sshd_config_file }}"
+    regexp: '^[#]*X11Forwarding'
+    line: 'X11Forwarding no'
+    validate: "{{ sshd_binary }} -t -f %s"
+
+
+
+
