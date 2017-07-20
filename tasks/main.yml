@@ -8,18 +8,17 @@
       - "{{ ansible_distribution }}_{{ ansible_distribution_major_version }}.yml"
       - "_sshd_default.yml"
 
-- name: Getting vars for *hardened* configuration, if enabled
-  include_vars: hardened_config.yml
-  when: sshd_hardened
-
 # only run the following tasks when the OS is supported; we don't want to munge anything
 - block:
+
   - name: Running distro specific tasks
     include: "{{ ansible_distribution }}_{{ ansible_distribution_major_version }}.yml"
     static: no
+
   - name: restart sshd
     command: echo "restarting the sshd daemon"
     notify: reload_sshd
+
   when: sshd_os_supported
 
   # - name: Making changes to the sshd_config file via template
