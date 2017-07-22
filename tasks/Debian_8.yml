@@ -1,5 +1,5 @@
 ---
-## file: roles/ansible-sshd/tasks/CentOS_7.yml
+## file: roles/ansible-sshd/tasks/Debian_8.yml
 #
 # Enforcing some settings to harden sshd. While some of the below are
 # the defaults, this will ensure that they are so.

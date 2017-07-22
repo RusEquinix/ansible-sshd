@@ -1,0 +1,106 @@
+{{ ansible_managed | comment }}
+
+# Package generated configuration file
+# See the sshd_config(5) manpage for details
+
+# What ports, IPs and protocols we listen for
+Port {{ sshd_conf_val_port | default(22) }}
+
+# Use these options to restrict which interfaces/protocols sshd will bind to
+{# ListenAddress can be multiple lines/entries #}
+{% if sshd_conf_val_listenaddress is defined %}
+{% for parameter in sshd_conf_val_listenaddress %}
+ListenAddress {{ parameter }}
+{% endfor %}
+{% else %}
+ListenAddress ::
+ListenAddress 0.0.0.0
+{% endif %}
+
+Protocol {{ sshd_conf_val_protocol | default('2') }}
+
+# HostKeys for protocol version 2
+{# HostKey can be multiple lines/entries #}
+{% if sshd_conf_val_hostkey is defined %}
+{% for parameter in sshd_conf_val_hostkey %}
+HostKey {{ parameter }}
+{% endfor %}
+{% else %}
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_dsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+{% endif %}
+
+#Privilege Separation is turned on for security
+UsePrivilegeSeparation {{ sshd_conf_val_useprivilegeseparation | default('yes') }}
+
+# Lifetime and size of ephemeral version 1 server key
+KeyRegenerationInterval {{ sshd_conf_val_keyregenerationinterval | default(3600) }}
+ServerKeyBits {{ sshd_conf_val_serverkeybits | default(768) }}
+
+# Logging
+SyslogFacility {{ sshd_conf_val_syslogfacility | default('AUTH') }}
+LogLevel {{ sshd_conf_val_loglevel | default('INFO') }}
+
+# Authentication:
+LoginGraceTime {{ sshd_conf_val_logingracetime | default(120) }}
+PermitRootLogin {{ sshd_conf_val_permitrootlogin | default('yes') }}
+StrictModes {{ sshd_conf_val_strictmodes | default('yes') }}
+
+RSAAuthentication {{ sshd_conf_val_rsaauthentication | default('yes') }}
+PubkeyAuthentication {{ sshd_conf_val_pubkeyauthentication | default('yes') }}
+AuthorizedKeysFile {{ sshd_conf_val_authorizedkeysfile | default('%h/.ssh/authorized_keys') }}
+
+# Don't read the user's ~/.rhosts and ~/.shosts files
+IgnoreRhosts {{ sshd_conf_val_ignorerhosts | default('yes') }}
+# For this to work you will also need host keys in /etc/ssh_known_hosts
+RhostsRSAAuthentication {{ sshd_conf_val_rhostsrsaauthentication | default('no') }}
+# similar for protocol version 2
+HostbasedAuthentication {{ sshd_conf_val_hostbasedauthentication | default('no') }}
+# Uncomment if you don't trust ~/.ssh/known_hosts for RhostsRSAAuthentication
+IgnoreUserKnownHosts {{ sshd_conf_val_ignoreuserknownhosts | default('no') }}
+
+# To enable empty passwords, change to yes (NOT RECOMMENDED)
+PermitEmptyPasswords {{ sshd_conf_val_permitemptypasswords | default('no') }}
+
+# Change to yes to enable challenge-response passwords (beware issues with
+# some PAM modules and threads)
+ChallengeResponseAuthentication {{ sshd_conf_val_challengeresponseauthentication | default('no') }}
+
+# Change to no to disable tunnelled clear text passwords
+PasswordAuthentication {{ sshd_conf_val_passwordauthentication | default('yes') }}
+
+# Kerberos options
+KerberosAuthentication {{ sshd_conf_val_kerberosauthentication | default('no') }}
+KerberosOrLocalPasswd {{ sshd_conf_val_kerberosorlocalpasswd | default('yes') }}
+KerberosTicketCleanup {{ sshd_conf_val_kerberosticketcleanup | default('yes') }}
+
+# GSSAPI options
+GSSAPIAuthentication {{ sshd_conf_val_gssapiauthentication | default('no') }}
+GSSAPICleanupCredentials {{ sshd_conf_val_gssapicleanupcredentials | default('yes') }}
+
+X11Forwarding {{ sshd_conf_val_x11forwarding | default('yes') }}
+X11DisplayOffset {{ sshd_conf_val_x11displayoffset | default(10) }}
+PrintMotd {{ sshd_conf_val_printmotd | default('no') }}
+PrintLastLog {{ sshd_conf_val_printlastlog | default('yes') }}
+TCPKeepAlive {{ sshd_conf_val_tcpkeepalive | default('yes') }}
+UseLogin {{ sshd_conf_val_uselogin | default('no') }}
+
+MaxStartups {{ sshd_conf_val_maxstartups | default('10:30:60') }}
+Banner {{ sshd_conf_val_banner | default('/etc/issue.net') }}
+
+# Allow client to pass locale environment variables
+AcceptEnv {{ sshd_conf_val_acceptenv | default('LANG LC_*') }}
+
+Subsystem {{ sshd_conf_val_subsystem | default('sftp /usr/lib/openssh/sftp-server') }}
+
+# Set this to 'yes' to enable PAM authentication, account processing,
+# and session processing. If this is enabled, PAM authentication will
+# be allowed through the ChallengeResponseAuthentication and
+# PasswordAuthentication.  Depending on your PAM configuration,
+# PAM authentication via ChallengeResponseAuthentication may bypass
+# the setting of "PermitRootLogin without-password".
+# If you just want the PAM account and session checks to run without
+# PAM authentication, then enable this but set PasswordAuthentication
+# and ChallengeResponseAuthentication to 'no'.
+UsePAM {{ sshd_conf_val_usepam | default('yes') }}
