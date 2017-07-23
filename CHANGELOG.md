@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.4] - 2017-07-23
+
+### Changed
+* Overhauled the templates due to some cases where they caused a complete lockout
+
 ## [0.3] - 2017-03-13
 
 ### Added
