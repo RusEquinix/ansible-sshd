@@ -15,10 +15,6 @@
     include: "{{ ansible_distribution }}_{{ ansible_distribution_major_version }}.yml"
     static: no
 
-  - name: restart sshd
-    command: echo "restarting the sshd daemon"
-    notify: reload_sshd
-
   when: sshd_os_supported
 
   # - name: Making changes to the sshd_config file via template
