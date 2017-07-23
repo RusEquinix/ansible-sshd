@@ -1,0 +1,42 @@
+{
+  "sshd_os_supported": true, 
+  "sshd_service": "sshd", 
+  "sshd_packages": ["openssh", "openssh-clients", "openssh-server"], 
+  "sshd_config_file": "/etc/ssh/sshd_config", 
+  "sshd_config_file_owner": "root", 
+  "sshd_config_file_group": "root", 
+  
+  "sshd_config_hardened": {
+    "pubkeyauthentication": { "argument": "yes", "keyword": "PubkeyAuthentication" }, 
+    "protocol": {
+      "argument": "2", 
+      "keyword": "Protocol"
+    }, 
+    "maxauthtries": {
+      "argument": "3", 
+      "keyword": "MaxAuthTries"
+    }, 
+    "ignorerhosts": {
+      "argument": "yes", 
+      "keyword": "IgnoreRhosts"
+    }, 
+    "passwordauthentication": {
+      "argument": "no", 
+      "keyword": "PasswordAuthentication"
+    }, 
+    "permitrootlogin": {
+      "argument": "no", 
+      "keyword": "PermitRootLogin"
+    }, 
+    "x11forwarding": {
+      "argument": "no", 
+      "keyword": "X11Forwarding"
+    }, 
+    "challengeresponseauthentication": {
+      "argument": "no", 
+      "keyword": "ChallengeResponseAuthentication"
+    }
+  }, 
+  "sshd_config_file_mode": "0600", 
+  "sshd_binary": "/usr/sbin/sshd"
+}

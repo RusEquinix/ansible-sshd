@@ -16,6 +16,7 @@
 # SELinux about this change.
 # semanage port -a -t ssh_port_t -p tcp #PORTNUMBER
 #
+<<<<<<< HEAD
 #Port 22
 #AddressFamily any
 #ListenAddress 0.0.0.0
@@ -52,12 +53,59 @@ PermitRootLogin {{ sshd_conf_val_permitrootlogin | default('yes') }}
 StrictModes {{ sshd_conf_val_strictmodes | default('yes') }}
 MaxAuthTries {{ sshd_conf_val_maxauthtries | default('6') }}
 #MaxSessions 10
+=======
+Port {{ sshd_conf_val_port | default(22) }}
+AddressFamily {{ sshd_conf_val_addressfamily | default('any') }}
+
+{# ListenAddress can be multiple lines #}
+{% if sshd_conf_val_listenaddress is defined %}
+{% for parameter in sshd_conf_val_listenaddress %}
+ListenAddress {{ parameter }}
+{% endfor %}
+{% else %}
+ListenAddress 0.0.0.0
+ListenAddress [::]
+{% endif %}
+
+# The default requires explicit activation of protocol 1
+Protocol {{ sshd_conf_val_protocol | default(2) }}
+
+{# HostKey can be multiple lines #}
+{% if sshd_conf_val_hostkey is defined %}
+{% for parameter in sshd_conf_val_hostkey %}
+HostKey {{ parameter }}
+{% endfor %}
+{% else %}
+HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+HostKey /etc/ssh/ssh_host_rsa_key
+{% endif %}
+
+# Lifetime and size of ephemeral version 1 server key
+KeyRegenerationInterval {{ sshd_conf_val_keyregenerationinterval | default(3600) }}
+ServerKeyBits {{ sshd_conf_val_serverkeybits | default(1024) }}
+
+# Ciphers and keying
+RekeyLimit {{ sshd_conf_val_rekeylimit | default('default none') }}
+
+# Logging
+SyslogFacility {{ sshd_conf_val_syslogfacility | default('AUTHPRIV') }}
+LogLevel {{ sshd_conf_val_loglevel | default('INFO') }}
+
+# Authentication:
+LoginGraceTime {{ sshd_conf_val_logingracetime | default(120) }}
+PermitRootLogin {{ sshd_conf_val_permitrootlogin | default('yes') }}
+StrictModes {{ sshd_conf_val_strictmodes | default('yes') }}
+MaxAuthTries {{ sshd_conf_val_maxauthtries | default(6) }}
+MaxSessions {{ sshd_conf_val_maxsessions | default(10) }}
+>>>>>>> 43d714db292b3fb0b7b8e4cc6ffcd763f2ee535b
 
 RSAAuthentication {{ sshd_conf_val_rsaauthentication | default('yes') }}
 PubkeyAuthentication {{ sshd_conf_val_pubkeyauthentication | default('yes') }}
 
 # The default is to check both .ssh/authorized_keys and .ssh/authorized_keys2
 # but this is overridden so installations will only check .ssh/authorized_keys
+<<<<<<< HEAD
 AuthorizedKeysFile	.ssh/authorized_keys
 
 #AuthorizedPrincipalsFile none
@@ -74,12 +122,31 @@ AuthorizedKeysFile	.ssh/authorized_keys
 #IgnoreUserKnownHosts no
 # Don't read the user's ~/.rhosts and ~/.shosts files
 #IgnoreRhosts yes
+=======
+AuthorizedKeysFile {{ sshd_conf_val_authorizedkeysfile | default('.ssh/authorized_keys') }}
+
+AuthorizedPrincipalsFile {{ sshd_conf_val_authorizedprincipalsfile | default('none') }}
+
+AuthorizedKeysCommand {{ sshd_conf_val_authorizedkeyscommand | default('none') }}
+AuthorizedKeysCommandUser {{ sshd_conf_val_authorizedkeyscommanduser | default('nobody') }}
+
+# For this to work you will also need host keys in /etc/ssh/ssh_known_hosts
+RhostsRSAAuthentication {{ sshd_conf_val_rhostsrsaauthentication | default('no') }}
+# similar for protocol version 2
+HostbasedAuthentication {{ sshd_conf_val_hostbasedauthentication | default('no') }}
+# Change to yes if you don't trust ~/.ssh/known_hosts for
+# RhostsRSAAuthentication and HostbasedAuthentication
+IgnoreUserKnownHosts {{ sshd_conf_val_ignoreuserknownhosts | default('no') }}
+# Don't read the user's ~/.rhosts and ~/.shosts files
+IgnoreRhosts {{ sshd_conf_val_ignorerhosts | default('yes') }}
+>>>>>>> 43d714db292b3fb0b7b8e4cc6ffcd763f2ee535b
 
 # To disable tunneled clear text passwords, change to no here!
 PasswordAuthentication {{ sshd_conf_val_passwordauthentication | default('yes') }}
 PermitEmptyPasswords {{ sshd_conf_val_permitemptypasswords | default('no') }}
 
 # Change to no to disable s/key passwords
+<<<<<<< HEAD
 #ChallengeResponseAuthentication yes
 ChallengeResponseAuthentication {{ sshd_conf_val_challengeresponseauthentication | default('no') }}
 
@@ -96,6 +163,22 @@ GSSAPICleanupCredentials no
 #GSSAPIStrictAcceptorCheck yes
 #GSSAPIKeyExchange no
 #GSSAPIEnablek5users no
+=======
+ChallengeResponseAuthentication {{ sshd_conf_val_challengeresponseauthentication | default('no') }}
+
+# Kerberos options
+KerberosAuthentication {{ sshd_conf_val_kerberosauthentication | default('no') }}
+KerberosOrLocalPasswd {{ sshd_conf_val_kerberosorlocalpasswd | default('yes') }}
+KerberosTicketCleanup {{ sshd_conf_val_kerberosticketcleanup | default('yes') }}
+KerberosUseKuserok {{ sshd_conf_val_kerberosusekuserok | default('yes') }}
+
+# GSSAPI options
+GSSAPIAuthentication {{ sshd_conf_val_gssapiauthentication | default('yes') }}
+GSSAPICleanupCredentials {{ sshd_conf_val_gssapicleanupcredentials | default('no') }}
+GSSAPIStrictAcceptorCheck {{ sshd_conf_val_gssapistrictacceptorcheck | default('yes') }}
+GSSAPIKeyExchange {{ sshd_conf_val_gssapikeyexchange | default('no') }}
+GSSAPIEnablek5users {{ sshd_conf_val_gssapienablek5users | default('no') }}
+>>>>>>> 43d714db292b3fb0b7b8e4cc6ffcd763f2ee535b
 
 # Set this to 'yes' to enable PAM authentication, account processing,
 # and session processing. If this is enabled, PAM authentication will
@@ -110,6 +193,7 @@ GSSAPICleanupCredentials no
 # problems.
 UsePAM {{ sshd_conf_val_usepam | default('yes') }}
 
+<<<<<<< HEAD
 #AllowAgentForwarding yes
 #AllowTcpForwarding yes
 #GatewayPorts no
@@ -145,10 +229,48 @@ AcceptEnv XMODIFIERS
 
 # override default of no subsystems
 Subsystem	sftp	/usr/libexec/openssh/sftp-server
+=======
+AllowAgentForwarding {{ sshd_conf_val_allowagentforwarding | default('yes') }}
+AllowTcpForwarding {{ sshd_conf_val_allowtcpforwarding | default('yes') }}
+GatewayPorts {{ sshd_conf_val_gatewayports | default('no') }}
+X11Forwarding {{ sshd_conf_val_x11forwarding | default('yes') }}
+X11DisplayOffset {{ sshd_conf_val_x11displayoffset | default(10) }}
+X11UseLocalhost {{ sshd_conf_val_x11uselocalhost | default('yes') }}
+PermitTTY {{ sshd_conf_val_permittty | default('yes') }}
+PrintMotd {{ sshd_conf_val_printmotd | default('yes') }}
+PrintLastLog {{ sshd_conf_val_printlastlog | default('yes') }}
+TCPKeepAlive {{ sshd_conf_val_tcpkeepalive | default('yes') }}
+UseLogin {{ sshd_conf_val_uselogin | default('no') }}
+UsePrivilegeSeparation {{ sshd_conf_val_useprivilegeseparation | default('sandbox') }}
+PermitUserEnvironment {{ sshd_conf_val_permituserenvironment | default('no') }}
+Compression {{ sshd_conf_val_compression | default('delayed') }}
+ClientAliveInterval {{ sshd_conf_val_clientaliveinterval | default(0) }}
+ClientAliveCountMax {{ sshd_conf_val_clientalivecountmax | default(3) }}
+ShowPatchLevel {{ sshd_conf_val_showpatchlevel | default('no') }}
+UseDNS {{ sshd_conf_val_usedns | default('yes') }}
+PidFile {{ sshd_conf_val_pidfile | default('/var/run/sshd.pid') }}
+MaxStartups {{ sshd_conf_val_maxstartups | default('10:30:100') }}
+PermitTunnel {{ sshd_conf_val_permittunnel | default('no') }}
+ChrootDirectory {{ sshd_conf_val_chrootdirectory | default('none') }}
+VersionAddendum {{ sshd_conf_val_versionaddendum | default('none') }}
+
+# no default banner path
+Banner {{ sshd_conf_val_banner | default('none') }}
+
+# Accept locale-related environment variables
+AcceptEnv {{ sshd_conf_val_acceptenv | default('LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT LC_IDENTIFICATION LC_ALL LANGUAGE XMODIFIERS') }}
+
+# override default of no subsystems
+Subsystem	{{ sshd_conf_val_subsystem | default('sftp /usr/libexec/openssh/sftp-server') }}
+>>>>>>> 43d714db292b3fb0b7b8e4cc6ffcd763f2ee535b
 
 # Example of overriding settings on a per-user basis
 #Match User anoncvs
 #	X11Forwarding no
 #	AllowTcpForwarding no
 #	PermitTTY no
+<<<<<<< HEAD
 #	ForceCommand cvs server
+=======
+#	ForceCommand cvs server
+>>>>>>> 43d714db292b3fb0b7b8e4cc6ffcd763f2ee535b

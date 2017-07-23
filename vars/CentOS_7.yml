@@ -1,7 +1,7 @@
 ---
 ## file: roles/ansible-sshd/vars/CentOS_7.yml
 ## default vars for sshd_config file
- 
+
 sshd_os_supported: true
 
 sshd_config_file: /etc/ssh/sshd_config
@@ -14,3 +14,30 @@ sshd_packages:
 sshd_config_file_owner: root
 sshd_config_file_group: root
 sshd_config_file_mode: "0600"
+sshd_config_hardened: true
+
+# sshd_config_hardened:
+#   challengeresponseauthentication:
+#     keyword: ChallengeResponseAuthentication
+#     argument: 'no'
+#   ignorerhosts:
+#     keyword: IgnoreRhosts
+#     argument: 'yes'
+#   maxauthtries:
+#     keyword: MaxAuthTries
+#     argument: '3'
+#   passwordauthentication:
+#     keyword: PasswordAuthentication
+#     argument: 'no'
+#   permitrootlogin:
+#     keyword: PermitRootLogin
+#     argument: 'no'
+#   protocol:
+#     keyword: Protocol
+#     argument: '2'
+#   pubkeyauthentication:
+#     keyword: PubkeyAuthentication
+#     argument: 'yes'
+#   x11forwarding:
+#     keyword: X11Forwarding
+#     argument: 'no'
